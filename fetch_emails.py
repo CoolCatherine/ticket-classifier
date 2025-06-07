@@ -7,6 +7,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import google.generativeai as genai
+from router import route_email
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 
@@ -197,6 +198,9 @@ if __name__ == '__main__':
 
                     if classification:
                         print(f"Classified As: {classification}")
+                        # Route the email
+                        routing_result = route_email(classification, message_details)
+                        print(f"Routing Result: {routing_result}")
                     else:
                         print("Classification Failed.")
 
