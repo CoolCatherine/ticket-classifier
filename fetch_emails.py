@@ -8,10 +8,11 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import google.generativeai as genai
 from router import route_email
+from langchain_classifier import classify_with_langchain
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 
-# Project defined categories
+#categories
 EMAIL_CATEGORIES = [
     "Technical Support",
     "Customer Support",
@@ -189,10 +190,9 @@ if __name__ == '__main__':
                     print(f"Sender: {message_details['sender']}")
                     print(f"Subject: {message_details['subject']}")
                    
-                    classification = classify_email_with_gemini(
+                    classification = classify_with_langchain(
                         message_details['subject'],
-                        message_details['body'],
-                        EMAIL_CATEGORIES
+                        message_details['body']
                     )
 
 
